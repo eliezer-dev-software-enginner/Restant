@@ -1,6 +1,6 @@
 ![everestheader](https://user-images.githubusercontent.com/23148259/39124644-c886b47a-4719-11e8-953c-f079b3edb664.png)
 
-Everest _(formerly RESTaurant)_ is an upcoming REST API testing client written in JavaFX.
+**Restant** is a fork of [Everest](https://github.com/RohitAwate/Everest) — a REST API testing client written in JavaFX, rebuilt with the **Megalodonte** framework: a declarative, reactive UI toolkit (React.js-like) for JavaFX.
 
 ![home](https://user-images.githubusercontent.com/23148259/45769743-23e5a380-bc5e-11e8-9e45-5ea50342c19f.PNG)
 _Everest running on Windows 10._
@@ -11,7 +11,6 @@ _Everest running on Windows 10._
   > I want you to want to use it!
 
 - Being a Java application, Everest is inherently **cross-platform**. It will run anywhere there's a JVM.
-- Everest will offer cloud synchronization of your projects powered by [Summit](https://github.com/RohitAwate/Summit). It will be available as a cloud service early next year or you may also choose to self-host it.
 
 # Live Features 🔥
 
@@ -37,10 +36,10 @@ _Making a GET request with Everest._
 - Digest Auth
 
 #### Custom Themes
-Everest is entirely theme-_able_ via CSS. For more details, refer [this guide](THEMES.md).
+Everest ships with LIGHT and DARK themes defined via Megalodonte's `ThemeInterface` (see `everest.core.Themes`).
 
 #### Efficient multi-tabbing
-Everest utilizes a technique called _pseudo tab-switching_ to maintain a low memory footprint even when heavy multi-tabbing. I have written a highly technical piece about this on my [dev.to](https://dev.to/rohit).
+Restant utilizes a technique called _pseudo tab-switching_ to maintain a low memory footprint even when heavy multi-tabbing.
 
 _**Bonus**: The '+' button for adding new tabs is finally live!_
 
@@ -61,15 +60,8 @@ Everest will fully support both of the OAuth standards. Work on **OAuth 2.0 is i
 - Will support **environment variables**. Every request can have its own.
 - Can be exported/imported.
 
-#### Summit
-![summitheader](https://user-images.githubusercontent.com/23148259/45769968-cbfb6c80-bc5e-11e8-95c7-7d418dee54d5.png)
-- [Summit](https://github.com/RohitAwate/Summit) is the synchronization server for Everest.
-- It will allow for synchronization of your Everest Projects across multiple devices and other members of your team.
-- It will use a Node.js-_powered_ RESTful API and Socket.IO.
-- It will be available early next year as a service. You may also choose to self-host Summit.
-
 #### Extension API
-This will allow developers to create extensions for Everest which can for example, sync to Google Drive, or visualize the response bodies in a certain fashion or summon Batman.
+This will allow developers to create extensions for Restant which can for example, sync to Google Drive, or visualize the response bodies in a certain fashion or summon Batman.
 
 #### Mock Server
 This local server can be used to quickly create a mock REST-_ful_ service with the endpoints of your choice, producing the output of your choice.
@@ -90,7 +82,7 @@ This local server can be used to quickly create a mock REST-_ful_ service with t
 | Alt + B      | Focus Body tab           |
 
 # Releases 🚀
-Everest is under active development and you can get the latest alpha build from [Releases](https://github.com/RohitAwate/Everest/releases). Make sure you read the release notes to understand what works and what doesn't, how to report issues and how to run the binary.
+Restant is under active development. Build it yourself with `gradlew shadowJar` — the standalone artifact is `build/libs/everest-2.0.0.jar`.
 
 # Building from source 🔨
 Everest is built with **Gradle** using the **Megalodonte framework** (JavaFX-based declarative UI). It requires JDK 25 and JavaFX 25.0.1.
@@ -102,8 +94,8 @@ Everest is built with **Gradle** using the **Megalodonte framework** (JavaFX-bas
 - Environment variable `JAVAFX_MODULES_HOME` pointing to a folder containing `windows-25.0.1/` / `linux-25.0.1/` JavaFX platforms
 
 ## Steps
-1. Clone the repository: `git clone https://github.com/RohitAwate/Everest.git`
-2. Enter the repository: `cd Everest`
+1. Clone the repository: `git clone git@github.com:eliezer-dev-software-enginner/Restant.git`
+2. Enter the repository: `cd Restant`
 3. Build the fat JAR: `gradlew shadowJar`
 4. Run: `gradlew run`
 
@@ -128,8 +120,5 @@ See `../megalodonte-skills/` for detailed reference documentation on the framewo
 # License ⚖️
 Everest is licensed under the [Apache 2.0 License](LICENSE).
 
-# Suggestions and improvements
-Use these options to reach me:
-- Open a GitHub issue.
-- Email me at rohitawate121@gmail.com.
-- Tweet me [@TheRohitAwate](https://twitter.com/TheRohitAwate).
+# Feedback
+- Open a GitHub issue in this repository.
