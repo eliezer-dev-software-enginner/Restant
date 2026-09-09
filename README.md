@@ -93,13 +93,37 @@ This local server can be used to quickly create a mock REST-_ful_ service with t
 Everest is under active development and you can get the latest alpha build from [Releases](https://github.com/RohitAwate/Everest/releases). Make sure you read the release notes to understand what works and what doesn't, how to report issues and how to run the binary.
 
 # Building from source 🔨
-Everest uses Maven, so building from the source code is very simple. You need to have a minimum of JDK 8 (9 should also work) installed, along with Maven and Git. If you're using OpenJDK, you will need to install OpenJFX separately. Once you have everything set up, follow these simple steps:
+Everest is built with **Gradle** using the **Megalodonte framework** (JavaFX-based declarative UI). It requires JDK 25 and JavaFX 25.0.1.
+
+## Requirements
+- **JDK 25** (Java toolchain)
+- **JavaFX 25.0.1** platform libs (downloaded via the OpenJFX plugin)
+- **Megalodonte framework** published to Maven Local (`megalodonte-base`, `megalodonte-components`, `megalodonte-reactivity`, `megalodonte-router`, `megalodonte-theme`, all `1.0.0-beta`)
+- Environment variable `JAVAFX_MODULES_HOME` pointing to a folder containing `windows-25.0.1/` / `linux-25.0.1/` JavaFX platforms
+
+## Steps
 1. Clone the repository: `git clone https://github.com/RohitAwate/Everest.git`
 2. Enter the repository: `cd Everest`
-3. Build a binary: `mvn package`
-4. Run the binary: `mvn exec:java`
+3. Build the fat JAR: `gradlew shadowJar`
+4. Run: `gradlew run`
 
-**For JDK  10 and above:** JavaFX has been decoupled from the JDK and will need to be installed separately.
+The deployable artifact is `build/libs/everest-2.0.0.jar` (standalone, includes all dependencies).
+
+## Architecture (Megalodonte)
+Since this migration, Everest uses the Megalodonte framework with a declarative, reactive UI:
+
+| Aspect | Before | After |
+|---|---|---|
+| Build | Maven (pom.xml) | Gradle (Kotlin DSL) |
+| Java | 1.8 | 25 |
+| UI | FXML + JFoenix | Megalodonte components (`ScreenComponent`) |
+| HTTP | Jersey JAX-RS | Java `java.net.http.HttpClient` |
+| JSON | Jackson 2.9.3 | Jackson 2.17.0 |
+| SQLite | 3.21.0.1 | 3.45.1.0 |
+| Themes | External CSS | `ThemeInterface` (`Themes.LIGHT`/`Themes.DARK`) |
+| Routing | N/A (single window) | Router v4 (`AppRoutes`) |
+
+See `../megalodonte-skills/` for detailed reference documentation on the framework patterns.
 
 # License ⚖️
 Everest is licensed under the [Apache 2.0 License](LICENSE).

@@ -5,6 +5,15 @@ classes/
 src/main/java/META-INF/
 dependency-reduced-pom.xml
 
+# Gradle
+.gradle/
+build/
+.run/
+*.class
+
+# JavaFX Modules Home
+java_fx_modules/
+
 # Hides Eclipse Artifacts
 .settings/
 .classpath
