@@ -18,9 +18,8 @@ group = "everest"
 version = fullVersion
 
 repositories {
-    mavenCentral()
     mavenLocal()
-    maven { url = uri("https://jitpack.io") }
+    mavenCentral()
 }
 
 java {
