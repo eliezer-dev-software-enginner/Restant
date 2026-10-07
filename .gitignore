@@ -22,3 +22,8 @@ java_fx_modules/
 # Runtime artifacts
 out/
 Everest/
+/.packaging/
+
+/dist/
+
+__pycache__/
