@@ -21,7 +21,7 @@ java_fx_modules/
 
 # Runtime artifacts
 out/
-Everest/
+/Everest/
 /.packaging/
 
 /dist/
