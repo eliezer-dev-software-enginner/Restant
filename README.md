@@ -1,124 +1,63 @@
-![everestheader](https://user-images.githubusercontent.com/23148259/39124644-c886b47a-4719-11e8-953c-f079b3edb664.png)
+# Everest / Restant
 
-**Restant** is a fork of [Everest](https://github.com/RohitAwate/Everest) — a REST API testing client written in JavaFX, rebuilt with the **Megalodonte** framework: a declarative, reactive UI toolkit (React.js-like) for JavaFX.
+This repository contains a fork of [Everest](https://github.com/RohitAwate/Everest), a desktop REST API client. The current application identifies itself as **Everest** in its build and window; **Restant** is the name of the fork's repository. It is written in Java with JavaFX and the Megalodonte UI framework.
 
-![home](https://user-images.githubusercontent.com/23148259/45769743-23e5a380-bc5e-11e8-9e45-5ea50342c19f.PNG)
-_Everest running on Windows 10._
-# Why Everest?
-- Everest is written in Java. Thus, it is significantly **lighter on resources and more responsive** than its Electron-based alternatives like _Postman_. It aims to provide the same level of functionality in a lighter, native but equally slick package.
-- Aesthetic is very important. With a **gorgeous, flat design**, Everest is a pleasure to look at and to work with. It is also entirely theme-_able_.
+## Current functionality
 
-  > I want you to want to use it!
+- Send GET, POST, PUT, PATCH and DELETE requests to an entered URL.
+- Enter a text body for POST, PUT and PATCH, selecting JSON, XML, HTML or plain text as its content type.
+- Display Basic and Digest authentication fields in the **Auth** tab. The current screen does not attach either selection to outgoing requests.
+- See the response status, elapsed time, size and body.
+- Save successful request details and responses to a local SQLite database at `~/.everest/history.sqlite` (the user's home directory).
 
-- Being a Java application, Everest is inherently **cross-platform**. It will run anywhere there's a JVM.
+The **Headers** and **Params** tabs currently display placeholders; they do not provide editors. The database stores history, but the current screen has no history browser or search. Themes are defined in code, while startup selects the light theme. These areas, along with keyboard shortcuts, response visualization and multipart forms, should not be assumed to work in this version.
 
-# Live Features 🔥
+## Build and run from source
 
-#### All of the most common requests
-GET, POST, PUT, DELETE and PATCH requests. HEAD and OPTIONS coming soon.
+Requirements:
 
-#### Comprehensive Request Builder
-- Add request headers.
-- Append query parameters. _(with live preview)_
-- **Syntax highlighting** for JSON and XML, powered by [RichTextFX](https://github.com/FXMisc/RichTextFX).
-- Quickly add key-value pairs for URL-encoded and multipart-form bodies.
- 
-#### View Response Details 
-- HTTP status code, content type, elapsed time, body size.
-- **Visualizer** to view JSON responses graphically. _(Aesthetic improvements coming with Alpha 1.4)_
-- View response headers.
+- JDK 25. Gradle uses a Java 25 toolchain.
+- The five Megalodonte `1.0.0-beta` modules (`base`, `components`, `reactivity`, `router`, `theme`) available in Maven Local. The build checks Maven Local and Maven Central; this repository does not include those modules or instructions for producing them.
+- For `run`, JavaFX 25.0.1 platform libraries in a directory named `linux-25.0.1/lib` or `windows-25.0.1/lib` beneath `JAVAFX_MODULES_HOME`, according to the operating system. The Gradle OpenJFX plugin also resolves JavaFX dependencies for the build.
 
-![get](https://user-images.githubusercontent.com/23148259/45769777-3c55be00-bc5e-11e8-9fbc-c8bf93b7dc5d.gif)
-_Making a GET request with Everest._
+From the repository root, after satisfying those requirements:
 
-#### API Authentication
-- Basic Auth
-- Digest Auth
+```sh
+# Linux: point to the parent directory containing linux-25.0.1/lib
+export JAVAFX_MODULES_HOME=/path/to/javafx-platforms
+./gradlew run
+```
 
-#### Custom Themes
-Everest ships with LIGHT and DARK themes defined via Megalodonte's `ThemeInterface` (see `everest.core.Themes`).
+On Windows, set `JAVAFX_MODULES_HOME` to the corresponding parent directory and use `gradlew.bat run`. The `run` task selects the Windows path on Windows and the Linux path on other systems; macOS runtime support is not configured here.
 
-#### Efficient multi-tabbing
-Restant utilizes a technique called _pseudo tab-switching_ to maintain a low memory footprint even when heavy multi-tabbing.
+To build the JAR:
 
-_**Bonus**: The '+' button for adding new tabs is finally live!_
+```sh
+./gradlew shadowJar
+```
 
-#### History
-Everest maintains the history of all the requests made by you. You can search with any of the request's components: the target, the headers, the method, the body or even the files added to the request. Everest will **intelligently rank** the results based on their relevance.
+On Windows, use `gradlew.bat shadowJar`. The output name is derived from `appName`, `appVersion` and `appPatch` in `gradle.properties` (currently `build/libs/everest-2.0.0.jar`). The build runs tests before creating the JAR. JavaFX is excluded from that JAR, so it is not a fully self-contained runtime artifact. Packaging configuration and platform requirements are described in [scripts/PACKAGING.md](scripts/PACKAGING.md).
 
-![history](https://user-images.githubusercontent.com/23148259/45769890-8a6ac180-bc5e-11e8-8f5e-6704eb0e9aa1.gif)
+## Usage
 
-_Everest's search feature in action._
+1. Enter a complete HTTP or HTTPS URL, for example `https://example.com/`.
+2. Select a method. For POST, PUT or PATCH, enter a body and select its format in the **Body** tab.
+3. Click **Send** to view the response. Request and response details are saved locally after a response is received.
 
-# Upcoming features ⏳
-#### OAuth Support
-Everest will fully support both of the OAuth standards. Work on **OAuth 2.0 is in progress** right now and will be available with Alpha 1.4. OAuth 1.0 will follow next. 
+## Historical Everest material
 
-#### Everest Project
-- This will be Everest's equivalent of Postman's Collection or Insomnia's Workspace.
-- Will house **named-requests**.
-- Will support **environment variables**. Every request can have its own.
-- Can be exported/imported.
+The following images show the original Everest interface and may not match this fork's current screen. The build still declares [RichTextFX](https://github.com/FXMisc/RichTextFX), though the current screen does not expose its syntax highlighting:
 
-#### Extension API
-This will allow developers to create extensions for Restant which can for example, sync to Google Drive, or visualize the response bodies in a certain fashion or summon Batman.
+![Original Everest header](https://user-images.githubusercontent.com/23148259/39124644-c886b47a-4719-11e8-953c-f079b3edb664.png)
 
-#### Mock Server
-This local server can be used to quickly create a mock REST-_ful_ service with the endpoints of your choice, producing the output of your choice.
+![Original Everest home screen on Windows 10](https://user-images.githubusercontent.com/23148259/45769743-23e5a380-bc5e-11e8-9e45-5ea50342c19f.PNG)
 
-# Keymap ⌨️
-| Shortcut     | Task                     |
-|--------------|--------------------------|
-| Ctrl + T     | New Tab                  |
-| Ctrl + W     | Close tab                |
-| Ctrl + H     | Toggle History           |
-| Ctrl + Enter | Send request             |
-| Ctrl + L     | Focus address bar        |
-| Ctrl + M     | Select HTTP method       |
-| Ctrl + F     | Focus history search bar |
-| Alt + P      | Focus Query Params tab   |
-| Alt + A      | Focus Authentication tab |
-| Alt + H      | Focus Headers tab        |
-| Alt + B      | Focus Body tab           |
+![Original Everest GET request demonstration](https://user-images.githubusercontent.com/23148259/45769777-3c55be00-bc5e-11e8-9fbc-c8bf93b7dc5d.gif)
 
-# Releases 🚀
-Restant is under active development. Build it yourself with `gradlew shadowJar` — the standalone artifact is `build/libs/everest-2.0.0.jar`.
+![Original Everest history search demonstration](https://user-images.githubusercontent.com/23148259/45769890-8a6ac180-bc5e-11e8-8f5e-6704eb0e9aa1.gif)
 
-# Building from source 🔨
-Everest is built with **Gradle** using the **Megalodonte framework** (JavaFX-based declarative UI). It requires JDK 25 and JavaFX 25.0.1.
+## Credits and license
 
-## Requirements
-- **JDK 25** (Java toolchain)
-- **JavaFX 25.0.1** platform libs (downloaded via the OpenJFX plugin)
-- **Megalodonte framework** published to Maven Local (`megalodonte-base`, `megalodonte-components`, `megalodonte-reactivity`, `megalodonte-router`, `megalodonte-theme`, all `1.0.0-beta`)
-- Environment variable `JAVAFX_MODULES_HOME` pointing to a folder containing `windows-25.0.1/` / `linux-25.0.1/` JavaFX platforms
+The original Everest project is by [Rohit Awate](https://github.com/RohitAwate/Everest), as also recorded in `gradle.properties`. This repository is a fork. The repository includes the [Apache License 2.0](LICENSE).
 
-## Steps
-1. Clone the repository: `git clone git@github.com:eliezer-dev-software-enginner/Restant.git`
-2. Enter the repository: `cd Restant`
-3. Build the fat JAR: `gradlew shadowJar`
-4. Run: `gradlew run`
-
-The deployable artifact is `build/libs/everest-2.0.0.jar` (standalone, includes all dependencies).
-
-## Architecture (Megalodonte)
-Since this migration, Everest uses the Megalodonte framework with a declarative, reactive UI:
-
-| Aspect | Before | After |
-|---|---|---|
-| Build | Maven (pom.xml) | Gradle (Kotlin DSL) |
-| Java | 1.8 | 25 |
-| UI | FXML + JFoenix | Megalodonte components (`ScreenComponent`) |
-| HTTP | Jersey JAX-RS | Java `java.net.http.HttpClient` |
-| JSON | Jackson 2.9.3 | Jackson 2.17.0 |
-| SQLite | 3.21.0.1 | 3.45.1.0 |
-| Themes | External CSS | `ThemeInterface` (`Themes.LIGHT`/`Themes.DARK`) |
-| Routing | N/A (single window) | Router v4 (`AppRoutes`) |
-
-See `../megalodonte-skills/` for detailed reference documentation on the framework patterns.
-
-# License ⚖️
-Everest is licensed under the [Apache 2.0 License](LICENSE).
-
-# Feedback
-- Open a GitHub issue in this repository.
+For feedback, open an issue in this repository.
