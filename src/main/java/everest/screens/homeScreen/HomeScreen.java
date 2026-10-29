@@ -15,7 +15,7 @@ import megalodonte.components.Text;
 import megalodonte.components.inputs.TextAreaInput;
 import megalodonte.components.layout_components.Column;
 import megalodonte.components.layout_components.Row;
-import megalodonte.components.v2.Input;
+import megalodonte.components.inputs.Input;
 import megalodonte.props.ButtonProps;
 import megalodonte.props.ColumnProps;
 import megalodonte.props.InputProps;
@@ -73,7 +73,7 @@ public class HomeScreen implements ScreenComponent {
                 new Select<String>(new SelectProps().minWidth(100))
                     .items(HTTP_METHODS)
                     .value(httpMethod),
-                new Input(url, new megalodonte.props.v2.InputProps().placeHolder("Enter URL...").fillWidth()),
+                new Input(url, new megalodonte.props.InputProps().placeHolder("Enter URL...").fillWidth()),
                 Show.when(
                     isLoading,
                     () -> new Button("Sending...", new ButtonProps()),
@@ -139,8 +139,8 @@ public class HomeScreen implements ScreenComponent {
                     authType.map(t -> !t.equals("none")),
                     () -> new Column(new ColumnProps().spacingOf(8))
                         .children(
-                            new Input(authUsername, new megalodonte.props.v2.InputProps().placeHolder("Username").fillWidth()),
-                            new Input(authPassword, new megalodonte.props.v2.InputProps().placeHolder("Password").fillWidth())
+                            new Input(authUsername, new megalodonte.props.InputProps().placeHolder("Username").fillWidth()),
+                            new Input(authPassword, new megalodonte.props.InputProps().placeHolder("Password").fillWidth())
                         )
                 )
             );
